@@ -1,4 +1,3 @@
-import com.sun.tools.javac.Main;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -29,7 +28,7 @@ public class Body {
     JTextField key = new JTextField();
     JLabel KeyEntery = new JLabel("Введите ключ:");
     JFrame MainFrame = new JFrame("Домашнее задание");
-    JPanel MainPanel = new JPanel();
+    JPanel MainPanel = new JPanel( );
     JButton okey = new JButton("Окей");
     JButton back = new JButton("Назад");
     private void ButtonBack(ActionEvent e){
@@ -65,6 +64,8 @@ public class Body {
             }
         }
     }
+    JButton info = new JButton("Инфо");
+
     private void ButtonOkey(ActionEvent e) {
         String read = null;
         try {
@@ -165,18 +166,58 @@ public class Body {
         } catch(IOException el){
             el.printStackTrace();
         }
+
         JLabel adminlog = new JLabel("Логин:");
         JLabel adminpass = new JLabel("Пароль:");
         JPanel admin = new JPanel();
-        admin.setLayout(null);
-        admin.add(adminLogin);
-        adminLogin.setBounds(160,180,150,24);
-        admin.add(adminPassword);
-        adminPassword.setBounds(160,205,150,24);
         JButton okey2 = new JButton("Окей");
-        admin.add(okey2);
-        okey2.setBounds(232,230,75,24);
-        admin.add(back);
+
+        GridBagLayout grig = new GridBagLayout();
+        GridBagConstraints gbc = new GridBagConstraints();
+        admin.setLayout(grig);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+        gbc.insets = new Insets(10,0,10,10);
+        gbc.gridx = 100;
+        gbc.weightx = 100.0;
+        gbc.weighty = 0.0;
+        gbc.gridy = 10;
+        admin.add(back,gbc);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0,0,0,0);
+        gbc.gridx = 40;
+        gbc.gridy = 25;
+        gbc.gridwidth = 5;
+        gbc.gridheight = 5;
+        admin.add(adminlog, gbc);
+        gbc.gridx = 40;
+        gbc.gridy = 30;
+        gbc.gridheight = 1;
+        admin.add(adminpass, gbc);
+        gbc.gridx = 45;
+        gbc.gridy = 25;
+        gbc.gridwidth = 5;
+        gbc.ipadx = 200;
+        gbc.gridheight = 5;
+        admin.add(adminLogin,gbc);
+        gbc.gridx = 45;
+        gbc.gridy = 30;
+        gbc.gridwidth = 5;
+        gbc.ipadx = 200;
+        gbc.gridheight = 1;
+        admin.add(adminPassword, gbc);
+        gbc.ipadx = 0;
+        gbc.gridx = 48;
+        gbc.gridy = 33;
+        gbc.gridwidth = 5;
+        admin.add(okey2,gbc);
+        JLabel label = new JLabel();
+        gbc.weightx = 0.0;
+        gbc.weighty = 100.0;
+        gbc.gridy = 100;
+        gbc.gridx = 10;
+        gbc.anchor = GridBagConstraints.LAST_LINE_START;
+        admin.add(label,gbc);
         adminLogin.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -217,11 +258,7 @@ public class Body {
                 }
             }
         });
-        back.setBounds(400,10,80,24);
-        admin.add(adminlog);
-        adminlog.setBounds(100,180,150, 24);
-        admin.add(adminpass);
-        adminpass.setBounds(100,205,200,24);
+
         okey2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -307,12 +344,47 @@ public class Body {
     public Body() throws Exception {
         ip = new GetIpAdress().run2().replaceFirst("/","");
        okey.setEnabled(false);
-            MainPanel.setLayout(null);
-            MainPanel.add(KeyEntery);
-            KeyEntery.setBounds(70, 180, 120, 23);
-            MainFrame.setVisible(true);
-            MainFrame.setSize(500, 500);
-            MainPanel.add(key);
+       MainFrame.setContentPane(MainPanel);
+       GridBagLayout gridBagLayout = new GridBagLayout();
+       MainFrame.setLayout(gridBagLayout);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.ipady = 5;
+        gbc.ipadx = 15;
+        gbc.weighty = 1.0;
+        gbc.weightx = 100.0;
+        gbc.anchor = GridBagConstraints.LAST_LINE_END;
+        gbc.insets = new Insets(10,0,5,5);
+        gbc.gridx = 100;
+        gbc.gridwidth = 2;
+        gbc.gridy = 1;
+        MainFrame.add(Admin,gbc);
+        MainFrame.add(okey, gbc);
+        gbc.gridx = 49;
+        gbc.ipady = 5;
+        gbc.ipadx = 15;
+        gbc.weightx = 100.0;
+        gbc.gridwidth = 1 ;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(10,10,0,0);
+        MainFrame.add(KeyEntery, gbc);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.weightx = 0.0;
+        gbc.gridwidth = 5;
+        gbc.gridx = 50;
+        gbc.ipadx = 200;
+        gbc.insets = new Insets(10,0,0,0);
+        MainFrame.add(key,gbc);
+        gbc.gridx = 5;
+        gbc.ipadx = 15;
+        gbc.gridx = 100;
+        gbc.insets = new Insets(10,0,5,5);
+        gbc.weightx = 100.0;
+        gbc.gridwidth = 5;
+        gbc.anchor = GridBagConstraints.FIRST_LINE_END;
+        MainFrame.add(info, gbc);
+        MainFrame.setVisible(true);
+            MainFrame.setSize(400, 500);
             key.addKeyListener(new KeyListener() {
                 @Override
                 public void keyTyped(KeyEvent e) {
@@ -331,6 +403,49 @@ public class Body {
                 @Override
                 public void keyReleased(KeyEvent e) {
 
+                }
+            });
+            info.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JPanel infoPanel = new JPanel();
+                    JLabel infolabel = new JLabel("Это мое приложение");
+                    infolabel.setLayout(new FlowLayout());
+                    infoPanel.add(infolabel);
+                    JButton back3 = new JButton("Назад");
+                    infoPanel.add(back3);
+                    back3.setBounds(200,200,100,100);
+                    back3.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            MainFrame.setContentPane(MainPanel);
+                            MainFrame.validate();
+                        }
+                    });
+                    infolabel.requestFocusInWindow();
+                    infolabel.addKeyListener(new KeyListener() {
+                        @Override
+                        public void keyTyped(KeyEvent e) {
+
+                        }
+
+                        @Override
+                        public void keyPressed(KeyEvent e) {
+                            if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+                                back3.doClick();
+                                key.requestFocusInWindow();
+                            }
+                        }
+
+                        @Override
+                        public void keyReleased(KeyEvent e) {
+
+                        }
+                    });
+
+                    infolabel.setBounds(100,100,100,100);
+                    MainFrame.setContentPane(infoPanel);
+                    MainFrame.validate();
                 }
             });
             Admin.setVisible(false);
@@ -352,12 +467,8 @@ public class Body {
 
                 }
             });
-            key.setBounds(170, 180, 150, 23);
+
             MainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
-            MainPanel.add(okey);
-            okey.setBounds(400, 430, 80, 25);
-            MainPanel.add(Admin);
-            Admin.setBounds(400, 8, 80, 25);
             Admin.addActionListener(this::ButtonAdmin);
             okey.addActionListener(this::ButtonOkey);
             MainFrame.setContentPane(MainPanel);
