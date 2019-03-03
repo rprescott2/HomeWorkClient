@@ -65,7 +65,6 @@ public class Body {
         }
     }
     JButton info = new JButton("Инфо");
-
     private void ButtonOkey(ActionEvent e) {
         String read = null;
         try {
